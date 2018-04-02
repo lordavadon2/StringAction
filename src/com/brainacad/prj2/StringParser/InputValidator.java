@@ -7,18 +7,19 @@ public class InputValidator implements IInputValidator {
 
     private String data;
 
-    public InputValidator(String data) {
+    public InputValidator(String data){
         this.data = data;
     }
 
-    @Override
-    public boolean validate() {
-        return checkInputFormat();
+    private void checkInputFormat() throws ValidationExaption {
+        Pattern pattern = Pattern.compile("exit|(\\w+ \\w*)");
+        Matcher matcher = pattern.matcher(this.data);
+        if (!matcher.matches()) {throw new ValidationExaption("Not matches with command input pattern");}
     }
 
-    private boolean checkInputFormat(){
-        Pattern pattern = Pattern.compile("exit |(\\w+ \\w*)");
-        Matcher matcher = pattern.matcher(this.data);
-        return matcher.matches();
+    @Override
+    public boolean validate() throws ValidationExaption {
+        checkInputFormat();
+        return false;
     }
 }

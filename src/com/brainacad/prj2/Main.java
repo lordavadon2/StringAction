@@ -1,8 +1,7 @@
 package com.brainacad.prj2;
 
 import com.brainacad.prj2.Commands.*;
-import com.brainacad.prj2.StringParser.CommandParser;
-import com.brainacad.prj2.StringParser.ICommandParser;
+import com.brainacad.prj2.StringParser.*;
 
 import java.util.Scanner;
 
@@ -14,12 +13,23 @@ public class Main {
             System.out.println("Введите данные: ");
             Scanner sc = new Scanner(System.in);
             String userInput = sc.nextLine();
-            ICommandParser parser = new CommandParser(userInput);
-            ICommandExec strTr = CommandFactory.create(
-                    parser.getCommand()
-                    ,parser.getData());
-            result = strTr.exec();
-            System.out.println(parser.getCommand() + ": " + result);
+            IInputValidator validator = new InputValidator(userInput);
+            ICommandParser parser = new CommandParser(userInput, validator);
+
+            try {
+                parser.tryParse();
+                ICommandExec strTr = CommandFactory.create(
+                        parser.getCommand()
+                        , parser.getData());
+                result = strTr.exec();
+                System.out.println(parser.getCommand() + ": " + result);
+            }
+            catch (UnsupportedOperationException e){
+                System.out.println(parser.getCommand() + ": error, unsupported command");
+            }
+            catch (ValidationExaption exc){
+                System.out.println("Validation error: " + exc.getValidationErrorInfo());
+            }
             if (CommandNames.exit.equals(parser.getCommand()))
             {
                 break;

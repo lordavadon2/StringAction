@@ -20,7 +20,7 @@ public class CommandFactory{
         return countExecution.get(type).intValue();
     }
 
-    public static ICommandExec create(String type, String data){
+    public static ICommandExec create(String type, String data)throws UnsupportedOperationException{
         incrimentCount(type);
         if (CommandNames.reverse.equals(type)){
 
