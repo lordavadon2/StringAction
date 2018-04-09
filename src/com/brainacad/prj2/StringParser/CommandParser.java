@@ -19,7 +19,7 @@ public class CommandParser implements ICommandParser {
     public boolean tryParse() throws ValidationExaption {
             validator.validate();
             String[] stringArray = userInput.split(separator);
-            this.command = new String(stringArray[0]);
+            this.command = new String(stringArray[0]).toUpperCase();
             if (stringArray.length > 1) {
                 this.data = new String(stringArray[1]);
             }

@@ -1,18 +1,18 @@
 package com.brainacad.prj2.Commands;
 
-import java.util.HashMap;
-
 public class CommandExit implements ICommandExec {
-    HashMap<String, Integer> executionInfo;
 
-    public CommandExit(HashMap<String, Integer> executionInfo) {
-        this.executionInfo = executionInfo;
-    }
+            @Override
+            public String exec () {
 
-    @Override
-    public String exec() {
-        return CommandNames.reverse + ": " + this.executionInfo.get(CommandNames.reverse)
-                + CommandNames.reverse +  ": " + this.executionInfo.get(CommandNames.remove)
-                + CommandNames.reverse +  ": " + this.executionInfo.get(CommandNames.replace);
-    }
+                StringBuilder result = new StringBuilder("");
+                for (CommandNames names : CommandNames.values()){
+                    result.append(names.toString() + " ");
+                }
+                return result.toString();
+//            return CommandNames.REVERSE.toString() + " "
+//                    + CommandNames.REMOVE.toString() + " "
+//                    + CommandNames.REPLACE.toString();
+        }
+
 }

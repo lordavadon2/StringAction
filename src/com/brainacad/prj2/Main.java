@@ -24,13 +24,13 @@ public class Main {
                 result = strTr.exec();
                 System.out.println(parser.getCommand() + ": " + result);
             }
-            catch (UnsupportedOperationException e){
+            catch (IllegalArgumentException e){
                 System.out.println(parser.getCommand() + ": error, unsupported command");
             }
             catch (ValidationExaption exc){
                 System.out.println("Validation error: " + exc.getValidationErrorInfo());
             }
-            if (CommandNames.exit.equals(parser.getCommand()))
+            if (CommandNames.EXIT.name().equals(parser.getCommand()))
             {
                 break;
             }
